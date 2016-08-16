@@ -65,11 +65,11 @@ d3.csv("data.csv", function(error, data) {
   var ageNames = d3.keys(data[0]).filter(function(key) { return key !== "id"; });
 
   data.forEach(function(d) {
-    d.ages = ageNames.map(function(name) { return {name: name, value: +d[name]}; });
+    d.ages = ageNames.map([{name: "Average_Estimated_Submitted_Charges"}, {name: "Average_Total_Payments"}], function(name) { return {name: name, value: +d[name]}; });
   });
 
   x0.domain(data.map(function(d) { return d.State; }));
-  x1.domain(ageNames).rangeRoundBands([9, x0.rangeBand()]);
+  x1.domain(ageNames).rangeRoundBands([0, x0.rangeBand()]);
   y.domain([0, d3.max(data, function(d) { return d3.max(d.ages, function(d) { return d.value; }); })]);
 
   svg.append("g")
